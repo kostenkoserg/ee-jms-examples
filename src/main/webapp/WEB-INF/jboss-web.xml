@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>/ee-jms-examples</context-root>
+</jboss-web>
