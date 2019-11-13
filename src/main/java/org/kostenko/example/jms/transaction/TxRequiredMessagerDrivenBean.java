@@ -21,7 +21,8 @@ import javax.jms.MessageListener;
 )
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = TxRequiredMessagerDrivenBean.TX_REQUIRED_QUEUE),
-    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
+    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+    @ActivationConfigProperty(propertyName = "transactionTimeout", propertyValue="500")
 })
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class TxRequiredMessagerDrivenBean implements MessageListener {
