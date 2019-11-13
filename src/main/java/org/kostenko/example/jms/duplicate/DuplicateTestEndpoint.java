@@ -1,4 +1,4 @@
-package org.kostenko.example.jms;
+package org.kostenko.example.jms.duplicate;
 
 
 import javax.annotation.Resource;

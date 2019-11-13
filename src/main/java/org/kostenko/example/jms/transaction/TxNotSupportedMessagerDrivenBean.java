@@ -1,4 +1,4 @@
-package org.kostenko.example.jms;
+package org.kostenko.example.jms.transaction;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -14,25 +14,27 @@ import javax.jms.MessageListener;
  */
 
 @JMSDestinationDefinition(
-        name = DuplicateJMSTestBean.DUPLICATE_QUEUE,
+        name = TxNotSupportedMessagerDrivenBean.TX_NOTSUPPORTED_QUEUE,
         interfaceName = "javax.jms.Queue"
 )
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = DuplicateJMSTestBean.DUPLICATE_QUEUE),
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = TxNotSupportedMessagerDrivenBean.TX_NOTSUPPORTED_QUEUE),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-public class DuplicateJMSTestBean implements MessageListener {
+public class TxNotSupportedMessagerDrivenBean implements MessageListener {
 
-    public final static String DUPLICATE_QUEUE = "java:global/jms/duplicateTestQueue";
+    public final static String TX_NOTSUPPORTED_QUEUE = "java:global/jms/txNotSupportedQueue";
     
     @Override
     public void onMessage(Message msg) {
         System.out.println("Got new message.");
-        MessageStorage.messages.add(msg);
         try {
-            Thread.sleep(5_000l);
-        } catch(Exception ignore) {}
+            System.out.println("Hello TxNotSupportedMessagerDrivenBean!");
+            Thread.sleep(60_000l);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         System.out.println("Message  successfully processed");
     }
 }

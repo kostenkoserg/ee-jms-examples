@@ -1,4 +1,4 @@
-package org.kostenko.example.jms;
+package org.kostenko.example.jms.duplicate;
 
 import java.util.ArrayList;
 import java.util.List;
